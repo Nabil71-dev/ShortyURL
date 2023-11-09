@@ -1,30 +1,24 @@
-import UrlTable from "./ListTable";
-
-const data = [
-    {
-        shortened: 'short url 1',
-        mainurl: 'main url 1',
-        isActive: true,
-    },
-    {
-        shortened: 'short url 2',
-        mainurl: 'main url 2',
-        isActive: true,
-    },
-    {
-        shortened: 'short url 3',
-        mainurl: 'main url 3',
-        isActive: false,
-    },
-]
+'use client'
+import { getAllUrls, reset } from "@/services/allUrls.slice";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import AllUrlsTable from "./UrlsAll.table";
 
 const UrlList = () => {
+    const [page, setPage] = useState(0);
+
+    const dispatch = useDispatch();
+    const { loading, allUrls } = useSelector(state => state.allUrls);
+
+    useEffect(() => {
+        dispatch(getAllUrls(page));
+
+        // return () => dispatch(reset());
+    }, [dispatch, page])
 
     return (
         <>
-            {/* <Dashboard links={adminNavLinks} > */}
-                <UrlTable data={data} />
-            {/* </Dashboard> */}
+            <AllUrlsTable urls={allUrls} user={false} setPage={setPage} loading={loading} />
         </>
     );
 }

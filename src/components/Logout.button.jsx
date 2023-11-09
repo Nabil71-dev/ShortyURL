@@ -1,16 +1,14 @@
 'use client'
+import { Logout } from '@/utils/auth.service';
 import { Text } from '@mantine/core';
 import { IconLogout } from '@tabler/icons-react';
-// import { LogoutMethod } from '../../../service/auth.service';
-// import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation'
 
 const LogoutButton = () => {
-    // const Navigate=useNavigate()
+    const router = useRouter()
     const LogOut = () => {
-        // LogoutMethod();
-        // Navigate('/login', {
-        //     replace: true
-        // })
+        Logout()
+        router.push('/')
     }
 
     return (

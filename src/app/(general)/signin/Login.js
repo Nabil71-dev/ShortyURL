@@ -2,43 +2,40 @@
 import DashboardTwo from "@/layout/DashboardTwo";
 import { useForm } from "@mantine/form"
 import { Box, Group, Switch, Text } from "@mantine/core"
+import { useRouter } from 'next/navigation'
 import LoginInfo from "./form/Login.info";
 import ButtonPrimary from "@/components/Button";
 import Link from "next/link";
 import FormLayoutPrimary from "@/layout/FormLayout";
+import { login } from "@/utils/auth.service";
+import LoadingButton from "@/components/Loading.button";
+import { useState } from "react";
+import { NotificationShow } from "@/components/NotificationShow";
 
 const Login = () => {
-    // const [isSubmit, setSubmit] = useState(false);
-    // const Navigate = useNavigate();
+    const [isSubmit, setSubmit] = useState(false);
+    const router = useRouter()
 
-    // const Submit = async (values) => {
-    //     setSubmit(true);
-    //     const response = await loginMethod({ ...values })
-    //     if (response?.status < 400) {
-    //         form.reset();
-    //         setSubmit(false);
-    //         notificationShow({ title: 'Login Successful', color: 'green' })
-    //         if (response?.data?.data?.role === "ADMIN") {
-    //             Navigate('/admin/dashboard', {
-    //                 replace: true
-    //             })
-    //         }
-    //         else if (response?.data?.data?.role === "USER") {
-    //             Navigate('/dashboard', {
-    //                 replace: true
-    //             })
-    //         }
-    //         else if (response?.data?.data?.role === "VENDOR") {
-    //             Navigate('/professionals/dashboard', {
-    //                 replace: true
-    //             })
-    //         }
-    //     }
-    //     else {
-    //         setSubmit(false);
-    //         notificationShow({ title: 'Login Error', message: `${response?.message}`, color: 'red' })
-    //     }
-    // }
+    const Submit = async (values) => {
+        setSubmit(true);
+        const response = await login(values);
+        
+        if (response?.status < 400) {
+            form.reset();
+            setSubmit(false);
+            NotificationShow({ title: 'Success', message: `${response?.data?.message}`, color: 'green' })
+            if (response?.data?.data?.admin==="true") {
+                router.push('/admin/dashboard')
+            }
+            else if (response?.data?.data?.admin==="false") {
+                router.push('/user/dashboard')
+            }
+        }
+        else {
+            setSubmit(false);
+            NotificationShow({ title: 'Failed', message: `${response?.response?.data?.message}`, color: 'red' })
+        }
+    }
 
     const form = useForm({
         initialValues: {
@@ -62,9 +59,9 @@ const Login = () => {
                             <Text sx={{ textAlign: 'end' }}><Link href="/request" target="_blank" style={{ textDecoration: 'none', color: '#37b24d' }}>Forget Password ?</Link> </Text>
 
                             <Group position="center" mt="md">
-                                <ButtonPrimary type="submit" text="Login" />
+                                {/* <ButtonPrimary type="submit" text="Login" /> */}
                                 {
-                                    // isSubmit ? <LoaderButton /> : <ButtonPrimary type="submit" text="Submit" />
+                                    isSubmit ? <LoadingButton /> : <ButtonPrimary type="submit" text="Login" />
                                 }
                             </Group>
                             <Text mt={1} sx={{ textAlign: 'center' }}>Don't have account ? <Link href="/signup" target="_blank" style={{ textDecoration: 'none', color: '#37b24d' }}>Signup</Link> </Text>

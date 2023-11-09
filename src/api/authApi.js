@@ -1,7 +1,8 @@
 import axios from "axios";
+import { encrypt, decrypt } from "@/utils/cookieParser";
 
 const instance = axios.create({
-  baseURL: process.env.VITE_SERVER_URL,
+  baseURL: process.env.SERVER_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -10,9 +11,12 @@ const instance = axios.create({
 // Before making request, it will follow this everytime
 instance.interceptors.request.use(
   (config) => {
-    const token = JSON.parse(localStorage.getItem("user"))
-    if (token.data) {
-      config.headers["Authorization"] = `Bearer ${token.data.accessToken}`;
+
+    const data = JSON.parse(localStorage.getItem("user"))
+    const token = decrypt(data.accessToken);
+
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
   },
@@ -35,17 +39,20 @@ instance.interceptors.response.use(
         originalConfig._retry = true;
         // console.log("refresh", TokenService.getLocalRefreshToken());
         try {
-          const rs =await axios.get(`${import.meta.env.VITE_SERVER_URL}api/refresh/token`, {
+          const data = JSON.parse(localStorage.getItem("user"))
+          const token = decrypt(data.token);
+
+          const rs = await axios.get(`${process.env.SERVER_URL}api/user/token/refresh`, {
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `token ${JSON.parse(localStorage.getItem("user"))?.data?.token}`
+              'Authorization': `token ${token}`
             }
           })
           const { accessToken } = rs.data.data;
-          
+
           //set new access token
           let user = JSON.parse(localStorage.getItem("user"));
-          user.data.accessToken = accessToken;
+          user.accessToken = encrypt(accessToken);
           localStorage.setItem("user", JSON.stringify(user));
 
           return instance(originalConfig);

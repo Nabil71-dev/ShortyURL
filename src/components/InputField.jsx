@@ -1,6 +1,4 @@
-import { Textarea, Flex, Text, TextInput, MultiSelect, Select, PasswordInput, NumberInput, FileInput } from "@mantine/core"
-import { DateInput, TimeInput } from "@mantine/dates"
-import { IconClock, IconUpload } from '@tabler/icons-react';
+import { Textarea, Flex, Text, TextInput, MultiSelect, Select, PasswordInput, NumberInput } from "@mantine/core"
 
 const InputField = ({ Type, label, fw, ...value }) => {
     const { required } = { ...value }
@@ -19,17 +17,8 @@ const InputField = ({ Type, label, fw, ...value }) => {
         else if (Type === "Password") {
             return (<PasswordInput sx={{ border: `${error[0] ? '' : '2px solid #D1D1D1'}`, borderRadius: '5px' }} {...value} />)
         }
-        else if (Type === "Date") {
-            return (<DateInput sx={{ border: `${error[0] ? '' : '2px solid #D1D1D1'}`, borderRadius: '5px' }} {...value} />)
-        }
-        else if (Type === "Time") {
-            return (<TimeInput icon={<IconClock size="1rem" stroke={1.5} />} sx={{ border: `${error[0] ? '' : '2px solid #D1D1D1'}`, borderRadius: '5px' }} {...value} />)
-        }
         else if (Type === "Number") {
             return (<NumberInput sx={{ border: `${error[0] ? '' : '2px solid #D1D1D1'}`, borderRadius: '5px' }} {...value} />)
-        }
-        else if (Type === "File") {
-            return (<FileInput icon={<IconUpload size="1rem" stroke={1.5} />} sx={{ border: `${error[0] ? '' : '2px solid #D1D1D1'}`, borderRadius: '5px' }} {...value} />)
         }
         else if (Type === "TextArea") {
             return (<Textarea sx={{ border: `${error[0] ? '' : '2px solid #D1D1D1'}`, borderRadius: '5px' }} {...value} />)

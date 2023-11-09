@@ -1,10 +1,16 @@
-import api from './api/api';
-import resetpassApi from './api/resetpassApi'
+import api from '../api/api';
+import resetApi from '../api/resetApi'
+import { encrypt } from '../utils/cookieParser/index';
 
 export const login = async (values) => {
     try {
         const data = await api.post("/api/user/login", values)
-        data && localStorage.setItem("user", JSON.stringify(data?.data));
+
+        const accessToken = encrypt(data?.data?.data?.accessToken)
+        const token = encrypt(data?.data?.data?.token)
+        const temp = { ...data, accessToken, token }
+
+        data && localStorage.setItem("user", JSON.stringify(temp));
         return data;
     }
     catch (err) {
@@ -14,7 +20,7 @@ export const login = async (values) => {
 
 export const signup = async (values) => {
     try {
-        const data  = await api.post("/api/user/signup", values)
+        const data = await api.post("/api/user/signup", values)
         return data;
     }
     catch (err) {
@@ -24,7 +30,8 @@ export const signup = async (values) => {
 
 export const requestPassChange = async (values) => {
     try {
-        const data = await api.post("/api/user/reset-pass-req", values);
+        const data = await api.post("/api/user/reset-req", values);
+        data && localStorage.setItem("resetToken", JSON.stringify(data?.data));
         return data;
     }
     catch (err) {
@@ -34,7 +41,7 @@ export const requestPassChange = async (values) => {
 
 export const setNewPass = async (values) => {
     try {
-        const data = await resetpassApi.post("/api/user/set-pass", values)
+        const data = await resetApi.post("/api/user/set-pass", values)
         return data;
     }
     catch (err) {

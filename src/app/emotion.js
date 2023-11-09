@@ -1,5 +1,5 @@
 'use client';
-
+import '../utils/firebase/firebase';
 import { CacheProvider } from '@emotion/react';
 import { useEmotionCache, MantineProvider } from '@mantine/core';
 import { useServerInsertedHTML } from 'next/navigation';

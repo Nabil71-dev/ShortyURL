@@ -1,15 +1,10 @@
-import { IconCalendarStats,IconTableOptions,IconLink,IconAccessible,IconList,IconUsersGroup,IconWallet } from '@tabler/icons-react';
+import { IconCalendarStats,IconLink,IconAccessible } from '@tabler/icons-react';
 
 export const adminNavLinks = [
     {
         label: 'Dashboard',
         link: '/admin/dashboard',
         icon: <IconCalendarStats style={{ marginRight: '5px' }} size="1.45rem"/>
-    },
-    {
-        label: 'Admin List',
-        link: '/admin/admin-list',
-        icon: <IconTableOptions style={{ marginRight: '5px' }}  size="1.45rem"/>
     },
     {
         label: 'Client List',

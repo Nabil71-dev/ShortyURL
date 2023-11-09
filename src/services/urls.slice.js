@@ -5,30 +5,30 @@ import authApi from '../api/authApi';
 const initialState = {
     loading: true,
     error: '',
-    urls: [],
+    urls: {},
 }
 
-export const getUrls = createAsyncThunk("get-urls", async () => {
+export const getUrls = createAsyncThunk("get-urls", async (data) => {
     try {
-        const data = await authApi.get("/api/url/user/url-lists")
-        return data
+        const value = await authApi.get(`/api/url/user/${data[1]}?page=${data[0]}&limit=10`)
+        return value
     }
     catch (error) {
         return error
     }
 });
 
-export const deleteUrls = createAsyncThunk("delete-urls", async ({id,reload,setReload}) => {
-    // console.log(id,reload,setReload)
+export const createUrl = createAsyncThunk("create-urls", async (data) => {
     try {
-        const data = await authApi.delete(`/api/url/user/${id}`)
-        setReload(!reload)
-        return data
+        const value = await authApi.post(`/api/url/short-create`,data?.values)
+        data?.close();
+        return value
     }
     catch (error) {
         return error
     }
 });
+
 
 const urlSlice = createSlice({
     name: 'urls',
@@ -52,31 +52,24 @@ const urlSlice = createSlice({
             })
             .addCase(getUrls.rejected, (state, action) => {
                 state.loading = false
-                state.error = action?.payload?.response?.data?.message ? action?.payload?.response?.data?.message : action?.payload?.message
+                state.error = action?.payload?.response?.response?.data?.message
             })
 
-            .addCase(deleteUrls.pending, (state) => {
+            .addCase(createUrl.pending, (state) => {
                 state.loading = true
             })
-            .addCase(deleteUrls.fulfilled, (state, action) => {
+            .addCase(createUrl.fulfilled, (state, action) => {
                 state.loading = false
                 if (action?.payload?.response?.status >= 400) {
-                    // toast.error(action?.payload?.response?.data?.message ? action?.payload?.response?.data?.message : action?.payload?.message, {
-                    //     autoClose: 1000
-                    // })
+                    state.error = action?.payload?.response?.data?.message ? action?.payload?.response?.data?.message : action?.payload?.message
                 }
                 else {
-                    state.urls.data = state?.urls?.data.filter(
-                        (item) => item.urlID !== action?.payload?.data?.data?.urlID
-                    );
-                    
+                    state.urls.data.push(action?.payload?.data?.data)
                 }
             })
-            .addCase(deleteUrls.rejected, (state, action) => {
+            .addCase(createUrl.rejected, (state, action) => {
                 state.loading = false
-                // toast.error(action?.payload?.response?.data?.message ? action?.payload?.response?.data?.message : action?.payload?.message, {
-                //     autoClose: 1000
-                // })
+                state.error = action?.payload?.response?.response?.data?.message
             })
     }
 })

@@ -1,22 +1,27 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { IconLogout } from '@tabler/icons-react';
-import { UnstyledButton, Group, Badge, Text, Box, useMantineTheme, rem } from '@mantine/core';
-// import { useProfile } from '../../../utils/context/AuthProvider';
-// import { LogoutMethod } from '../../../service/auth.service';
-// import { useNavigate } from 'react-router-dom';
+import { UnstyledButton, Group, Badge, Text, Box, useMantineTheme} from '@mantine/core';
+import { useSelector, useDispatch } from 'react-redux';
+import { getProfile,reset } from '@/services/user.slice';
+import { useRouter } from 'next/navigation'
+import { Logout } from '@/utils/auth.service';
 
-const LogoutCard = ({ type }) => {
-    // const { state } = useProfile();
-    // const { loading, error, data } = state;
+const LogoutCard = () => {
     const theme = useMantineTheme();
+    const router = useRouter()
+    const { loading, error, profile } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
-    // const Navigate = useNavigate()
-    // const LogOut = () => {
-    //     LogoutMethod();
-    //     Navigate('/login', {
-    //         replace: true
-    //     })
-    // }
+    useEffect(() => {
+        dispatch(getProfile())
+
+        return () => dispatch(reset());
+    }, [dispatch])
+
+    const logOut = () => {
+        Logout();
+        router.push('/')
+    }
 
     return (
         <Box
@@ -36,17 +41,14 @@ const LogoutCard = ({ type }) => {
                 <Group>
                     <Box sx={{ flex: 1 }}>
                         <Box w={130}>
-                        <Text truncate size="sm" weight={500}>email</Text>
-                            {
-                                // !loading && error=="" && data && <Text truncate size="sm" weight={500}>{data?.email}</Text>
-                            }
+                        <Text truncate size="sm" weight={500}>{profile?.data?.email}</Text>
                         </Box>
                         <Badge sx={(theme) => ({
                             backgroundColor: theme.colors.gray[1],
                             color: theme.colors.green[7]
-                        })} >type</Badge>
+                        })} >Admin</Badge>
                     </Box>
-                    <Text mt="sm" title="Logout" ><IconLogout color="gray" size="1.5rem" stroke={2.25}/></Text>
+                    <Text mt="sm" title="Logout" onClick={logOut}><IconLogout color="gray" size="1.5rem" stroke={2.25}/></Text>
                 </Group>
             </UnstyledButton>
         </Box>

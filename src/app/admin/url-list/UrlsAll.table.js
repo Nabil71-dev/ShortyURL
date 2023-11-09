@@ -5,9 +5,9 @@ import Table from "@/components/Table";
 import ButtonPrimary from "@/components/Button";
 import CreateShortForm from "@/app/user/dashboard/create-short/CreateShort.form";
 
-
-const UrlTable = ({ user, urls, limit, setPage, loading }) => {
+const AllUrlsTable = ({ urls, user, setPage, loading }) => {
     const [opened, { open, close }] = useDisclosure(false);
+
     const openModal = (value) => {
         open();
     }
@@ -21,7 +21,7 @@ const UrlTable = ({ user, urls, limit, setPage, loading }) => {
                         user && <ButtonPrimary click={openModal} text="Create Short" />
                     }
                     <Modal opened={opened} onClose={close} title="Create Shortened URL" centered>
-                        <CreateShortForm close={close} limit={limit} />
+                        <CreateShortForm close={close} />
                     </Modal>
                 </Flex>
                 <Table
@@ -32,36 +32,18 @@ const UrlTable = ({ user, urls, limit, setPage, loading }) => {
                     data={urls.data || []}
                     columns={[
                         {
-                            header: "Status",
-                            cell: (cell) => {
-                                const date = new Date();
-                                const activeStatus = cell.row.original.userIDs[0].expiresIn
-                                if (activeStatus >= date) {
-                                    return (
-                                        <Text c='teal.7' fw={700}>ACTIVE</Text>
-                                    )
-                                }
-                                else {
-                                    return (
-                                        <Text c='red.7' fw={700}>IN-ACTIVE</Text>
-                                    )
-                                }
-                            },
+                            accessorKey: "originalUrl",
+                            header: "Main URL",
                             filterFn: stringFilterFn,
                         },
                         {
                             header: "Shortened URL",
                             cell: (cell) => {
-                                const shortUrl = cell.row.original.userIDs[0].shortenedurl
+                                const shortUrl = cell.row.original.shortenedurl
                                 return (
                                     <Text>{process.env.SERVER_URL}s/{shortUrl}</Text>
                                 )
                             },
-                            filterFn: stringFilterFn,
-                        },
-                        {
-                            accessorKey: "originalUrl",
-                            header: "Main URL",
                             filterFn: stringFilterFn,
                         },
                     ]}
@@ -71,4 +53,4 @@ const UrlTable = ({ user, urls, limit, setPage, loading }) => {
     );
 }
 
-export default UrlTable;
+export default AllUrlsTable;

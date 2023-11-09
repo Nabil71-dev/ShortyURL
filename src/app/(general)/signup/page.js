@@ -1,44 +1,26 @@
 'use client'
+import { useState, useEffect } from "react";
 import { useForm } from "@mantine/form"
-import { Box, Group, Switch, Text } from "@mantine/core"
+import { Box, Group, Text } from "@mantine/core"
 import ButtonPrimary from "@/components/Button";
 import Link from "next/link";
 import FormLayoutPrimary from "@/layout/FormLayout";
 import SignupInfo from "./form/Signup.info";
 import { IconBrandGoogle } from '@tabler/icons-react';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import LoadingButton from "@/components/Loading.button";
+import { NotificationShow } from "@/components/NotificationShow";
+import { signup } from "@/utils/auth.service";
+import { useRouter } from 'next/navigation'
 
 const Signup = () => {
-    // const [isSubmit, setSubmit] = useState(false);
-    // const Navigate = useNavigate();
+    const [name, setName] = useState('');
+    const [mail, setMail] = useState('');
+    const [isSubmit, setSubmit] = useState(false);
 
-    // const Submit = async (values) => {
-    //     setSubmit(true);
-    //     const response = await loginMethod({ ...values })
-    //     if (response?.status < 400) {
-    //         form.reset();
-    //         setSubmit(false);
-    //         notificationShow({ title: 'Login Successful', color: 'green' })
-    //         if (response?.data?.data?.role === "ADMIN") {
-    //             Navigate('/admin/dashboard', {
-    //                 replace: true
-    //             })
-    //         }
-    //         else if (response?.data?.data?.role === "USER") {
-    //             Navigate('/dashboard', {
-    //                 replace: true
-    //             })
-    //         }
-    //         else if (response?.data?.data?.role === "VENDOR") {
-    //             Navigate('/professionals/dashboard', {
-    //                 replace: true
-    //             })
-    //         }
-    //     }
-    //     else {
-    //         setSubmit(false);
-    //         notificationShow({ title: 'Login Error', message: `${response?.message}`, color: 'red' })
-    //     }
-    // }
+    const router = useRouter()
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
 
     const form = useForm({
         initialValues: {
@@ -46,7 +28,7 @@ const Signup = () => {
             email: '',
             password: '',
             confirmPass: '',
-            role: 'user'
+            isAdmin: false
         },
         validate: {
             email: (value) =>
@@ -56,21 +38,51 @@ const Signup = () => {
         },
     })
 
+    const loginWithGoogle = () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                setName(result.user.displayName);
+                setMail(result.user.email);
+            }).catch((error) => {
+                alert(error.message)
+            });
+    }
+
+    useEffect(() => {
+        form.values.name = name
+        form.values.email = mail
+    }, [name, mail])
+
+    const Submit = async (values) => {
+        setSubmit(true);
+        delete values.confirmPass;
+        const response = await signup(values)
+        if (response?.status < 400) {
+            form.reset();
+            setSubmit(false);
+            router.push('/');
+        }
+        else {
+            setSubmit(false);
+            NotificationShow({ title: 'Failed', message: `${response?.response?.data?.message}`, color: 'red' })
+        }
+    }
+
+
     return (
         <>
             <FormLayoutPrimary title="Create Account">
                 <Box>
                     <form onSubmit={form.onSubmit(values => Submit(values))}>
-                        <SignupInfo form={form} />
+                        <SignupInfo form={form} name={name} email={mail} setName={setName} setMail={setMail} />
                         <Group position="center" mt="md">
-                            <ButtonPrimary type="submit" text="Sign up" />
                             {
-                                // isSubmit ? <LoaderButton /> : <ButtonPrimary type="submit" text="Submit" />
+                                isSubmit ? <LoadingButton /> : <ButtonPrimary type="submit" text="Sign up" />
                             }
                         </Group>
-                        {/* <Group position="center" mt="sm" mb="md">
-                            <Text mt={1} sx={{ textAlign: 'center' }}>Or, Signup with </Text><IconBrandGoogle color="green" size="1.5rem" stroke={2.5}/>
-                        </Group> */}
+                        <Group position="center" mt="sm" mb="md">
+                            <Text mt={1} sx={{ textAlign: 'center' }}>Or, Signup with </Text><IconBrandGoogle style={{ cursor: 'pointer' }} onClick={loginWithGoogle} color="green" size="1.5rem" stroke={2.5} />
+                        </Group>
                         <Text mt={1} sx={{ textAlign: 'center' }}>Already have an account ? <Link href="/" target="_blank" style={{ textDecoration: 'none', color: '#37b24d' }}>Login</Link> </Text>
                     </form>
                 </Box>

@@ -1,46 +1,31 @@
 'use client'
-import { useState } from "react";
-import { Flex, Modal, Box, Text, Button, Switch } from "@mantine/core";
-import { useDisclosure } from '@mantine/hooks';
-import { stringFilterFn, dateFilterFn } from "mantine-data-grid"
-import { IconViewportWide, IconTrash } from '@tabler/icons-react';
+import { useState,useEffect } from "react";
+import { Flex,Box, Text, Switch, Button } from "@mantine/core";
+import { stringFilterFn } from "mantine-data-grid"
+import { useSelector, useDispatch } from 'react-redux';
 import Table from "@/components/Table";
-import ButtonPrimary from "@/components/Button";
 import Link from "next/link";
-
-const data = [
-    {
-        id: '1',
-        name: 'user one',
-        email: 'user01@gmail.com',
-        isActive: true,
-    },
-    {
-        id: '2',
-        name: 'user two',
-        email: 'user02@gmail.com',
-        isActive: true,
-    },
-    {
-        id: '3',
-        name: 'user three',
-        email: 'user03@gmail.com',
-        isActive: false,
-    },
-]
+import { getUsers,reset, updateUsers } from "@/services/userManage.slice";
+import { ConfirmModal } from "@/components/ConfirmModal";
 
 const ClientList = () => {
     const [page, setPage] = useState(0);
-    const [bill, setBill] = useState('')
-    const [opened, { open, close }] = useDisclosure(false);
-    // const { Payments, isLoading, isError, error } = useGetPayments(page + 1);
+   
+    const dispatch = useDispatch();
+    const { loading, data } = useSelector(state => state.usermanage);
 
-    const openModal = (value) => {
-        open();
-    }
+    useEffect(() => {
+        dispatch(getUsers(page));
+    }, [dispatch, page])
 
-    const changeStatus = (e) => {
-        // e.target.checked=false
+    const changeStatus = (value,id) => {
+        const data={
+            id,
+            values:{
+                status:value
+            }
+        }
+        dispatch(updateUsers(data))
     }
 
     return (
@@ -50,19 +35,25 @@ const ClientList = () => {
                     <Text fw={700}>CLIENT LIST</Text>
                 </Flex>
                 <Table
-                    // loading={isLoading}
-                    // total={Payments?.data?.meta ? Payments?.data?.meta?.total : 0}
+                    loading={loading}
+                    total={data ? data?.total : 0}
                     withGlobalFilter
-                    // onPageChange={(value) => setPage(value.pageIndex)}
-                    data={data || []}
+                    onPageChange={(value) => setPage(()=>value.pageIndex)}
+                    data={data?.data || []}
                     columns={[
                         {
-                            accessorKey: "isActive",
+                            accessorKey: "status",
                             header: "Status",
                             cell: (cell) => {
-                                const activeStatus = cell.row.original.isActive
+                                const activeStatus = cell.row.original.status
+                                const id=cell.row.original.userID
                                 return (
-                                    <Switch color="green.7" defaultChecked={activeStatus} onChange={(e) => changeStatus(e)} />
+                                    <>
+                                    {
+                                        activeStatus ? <button className="bg-green-500 hover:bg-green-700 text-white px-1 rounded" onClick={() => changeStatus(false,id)}>Active</button> : 
+                                        <button className="bg-red-500 hover:bg-red-700 text-white px-1 rounded" onClick={() => changeStatus(true,id)} >Inactive</button>
+                                    }
+                                    </>
                                 )
                             },
                             // size: 50,
@@ -73,7 +64,7 @@ const ClientList = () => {
                             header: "Name",
                             cell: (cell) => {
                                 const name = cell.row.original.name
-                                const id = cell.row.original.id
+                                const id = cell.row.original.userID
                                 return (
                                     <Link href={`/admin/client-list/${id}`} style={{ textDecoration: 'none', color: '#37b24d' }}>{name}</Link>
                                 )
@@ -87,27 +78,6 @@ const ClientList = () => {
                             // size: 60,
                             filterFn: stringFilterFn,
                         },
-                        // {
-                        //     accessorKey: "type",
-                        //     header: "Role",
-                        //     // size: 50,
-                        //     filterFn: stringFilterFn,
-                        // },
-                        // {
-                        //     header: "Action",
-                        //     size: 50,
-                        //     cell: (cell) => {
-                        //         const userInfo = cell?.row?.original
-                        //         return (
-                        //             <>
-                        //                 <Text onClick={() => openModal(userInfo)} sx={{ color: 'red', cursor: 'pointer' }} title="view"><IconTrash /></Text>
-                        //                 <Modal opened={opened} onClose={close} title="Payment status update" centered>
-                        //                 <BillingStatusForm data={bill} close={close} />
-                        //                 </Modal>
-                        //             </>
-                        //         )
-                        //     },
-                        // },
                     ]}
                 />
             </Box>
