@@ -1,5 +1,6 @@
 import axios from "axios";
 import { encrypt, decrypt } from "@/utils/cookieParser";
+import Cookies from "js-cookie";
 
 const instance = axios.create({
   baseURL: process.env.SERVER_URL,
@@ -12,7 +13,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
 
-    const data = JSON.parse(localStorage.getItem("user"))
+    const data = JSON.parse(Cookies.get("user"))
     const token = decrypt(data.accessToken);
 
     if (token) {
@@ -39,7 +40,7 @@ instance.interceptors.response.use(
         originalConfig._retry = true;
         // console.log("refresh", TokenService.getLocalRefreshToken());
         try {
-          const data = JSON.parse(localStorage.getItem("user"))
+          const data = JSON.parse(Cookies.get("user"))
           const token = decrypt(data.token);
 
           const rs = await axios.get(`${process.env.SERVER_URL}api/user/token/refresh`, {
@@ -51,9 +52,9 @@ instance.interceptors.response.use(
           const { accessToken } = rs.data.data;
 
           //set new access token
-          let user = JSON.parse(localStorage.getItem("user"));
+          let user = JSON.parse(Cookies("user"));
           user.accessToken = encrypt(accessToken);
-          localStorage.setItem("user", JSON.stringify(user));
+          Cookies.set("user", JSON.stringify(user));
 
           return instance(originalConfig);
         } catch (_error) {

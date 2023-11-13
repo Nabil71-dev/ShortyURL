@@ -14,3 +14,7 @@ export const expMap={
 };
 
 export const footerText='© All rights reserved ShortURL 2023';
+
+export const adminRoutes = ["/admin/dashboard", "/admin/client-list","/admin/url-list","/admin/client-list/:id"];
+export const userRoutes = ["/user/dashboard"];
+export const generalRoutes = ["/signin", "/signup","/","/request","/setup"];

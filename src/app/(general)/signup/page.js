@@ -12,6 +12,7 @@ import LoadingButton from "@/components/Loading.button";
 import { NotificationShow } from "@/components/NotificationShow";
 import { signup } from "@/utils/auth.service";
 import { useRouter } from 'next/navigation'
+import DashboardTwo from "@/layout/DashboardTwo";
 
 const Signup = () => {
     const [name, setName] = useState('');
@@ -70,7 +71,7 @@ const Signup = () => {
 
 
     return (
-        <>
+        <DashboardTwo user={false}>
             <FormLayoutPrimary title="Create Account">
                 <Box>
                     <form onSubmit={form.onSubmit(values => Submit(values))}>
@@ -87,7 +88,7 @@ const Signup = () => {
                     </form>
                 </Box>
             </FormLayoutPrimary>
-        </>
+        </DashboardTwo>
     );
 }
 

@@ -1,6 +1,7 @@
 import api from '../api/api';
 import resetApi from '../api/resetApi'
 import { encrypt } from '../utils/cookieParser/index';
+import Cookies from "js-cookie";
 
 export const login = async (values) => {
     try {
@@ -10,7 +11,7 @@ export const login = async (values) => {
         const token = encrypt(data?.data?.data?.token)
         const temp = { ...data, accessToken, token }
 
-        data && localStorage.setItem("user", JSON.stringify(temp));
+        data && Cookies.set("user", JSON.stringify(temp));
         return data;
     }
     catch (err) {
@@ -49,6 +50,6 @@ export const setNewPass = async (values) => {
     }
 };
 
-export const Logout = async () => {
-    localStorage.removeItem("user");
+export const Logout = () => {
+    Cookies.remove("user");
 };

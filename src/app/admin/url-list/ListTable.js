@@ -28,14 +28,14 @@ const UrlTable = ({ user, urls, limit, setPage, loading }) => {
                     loading={loading}
                     total={urls ? urls?.total : 0}
                     withGlobalFilter
-                    onPageChange={(value) => setPage(value.pageIndex)}
-                    data={urls.data || []}
+                    onPageChange={(value) => setPage(value?.pageIndex)}
+                    data={urls?.data || []}
                     columns={[
                         {
                             header: "Status",
                             cell: (cell) => {
                                 const date = new Date();
-                                const activeStatus = cell.row.original.userIDs[0].expiresIn
+                                const activeStatus = cell?.row?.original?.userIDs[0]?.expiresIn
                                 if (activeStatus >= date) {
                                     return (
                                         <Text c='teal.7' fw={700}>ACTIVE</Text>

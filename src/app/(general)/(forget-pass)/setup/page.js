@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useRouter } from 'next/navigation'
 import { NotificationShow } from "@/components/NotificationShow";
 import { setNewPass } from "@/utils/auth.service";
+import DashboardTwo from "@/layout/DashboardTwo";
 
 const SetupPass = () => {
     const [isSubmit, setSubmit] = useState(false);
@@ -43,7 +44,7 @@ const SetupPass = () => {
 
 
     return (
-        <>
+        <DashboardTwo user={false}>
             <FormLayoutPrimary title="Setup password">
                 <Box>
                     <form onSubmit={form.onSubmit(values => Submit(values))}>
@@ -56,7 +57,7 @@ const SetupPass = () => {
                     </form>
                 </Box>
             </FormLayoutPrimary>
-        </>
+        </DashboardTwo>
     );
 }
 

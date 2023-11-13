@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Table from "@/components/Table";
 import Link from "next/link";
 import { getUsers,reset, updateUsers } from "@/services/userManage.slice";
-import { ConfirmModal } from "@/components/ConfirmModal";
 
 const ClientList = () => {
     const [page, setPage] = useState(0);
