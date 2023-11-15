@@ -21,7 +21,7 @@ const RequestSetup = () => {
         if (response?.status < 400) {
             form.reset();
             setSubmit(false);
-            NotificationShow({ title: 'Failed', message: `${response?.data?.message}`, color: 'green' })
+            NotificationShow({ title: 'Success', message: `${response?.data?.message}`, color: 'green' })
             router.push('/setup')
         }
         else {

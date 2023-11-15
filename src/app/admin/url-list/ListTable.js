@@ -4,9 +4,10 @@ import { stringFilterFn } from "mantine-data-grid"
 import Table from "@/components/Table";
 import ButtonPrimary from "@/components/Button";
 import CreateShortForm from "@/app/user/dashboard/create-short/CreateShort.form";
-
+import { useRouter } from "next/navigation";
 
 const UrlTable = ({ user, urls, limit, setPage, loading }) => {
+    const router = useRouter();
     const [opened, { open, close }] = useDisclosure(false);
     const openModal = (value) => {
         open();
@@ -14,11 +15,11 @@ const UrlTable = ({ user, urls, limit, setPage, loading }) => {
 
     return (
         <>
-            <Box w={{ base: '99%', sm: '85%' }} mx="auto" mt="xs" mb="md" p={20} sx={{ backgroundColor: '#ffffff' }}>
+            <Box w={{ base: '99%', sm: '85%' }} mx="auto" mt="xs" mb="md" p={20} sx={{ borderRadius:'8px',backgroundColor: '#ffffff' }}>
                 <Flex align="center" justify="space-between" mb="sm">
                     <Text fw={700}>URL LIST</Text>
                     {
-                        user && <ButtonPrimary click={openModal} text="Create Short" />
+                        user ? <ButtonPrimary click={openModal} text="Create Short" /> : <ButtonPrimary click={() => router.back()} text="Back" />
                     }
                     <Modal opened={opened} onClose={close} title="Create Shortened URL" centered>
                         <CreateShortForm close={close} limit={limit} />

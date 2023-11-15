@@ -25,6 +25,7 @@ const Login = () => {
             setSubmit(false);
             NotificationShow({ title: 'Success', message: `${response?.data?.message}`, color: 'green' })
             if (response?.data?.data?.admin==="true") {
+                console.log(response?.data?.data)
                 router.push('/admin/dashboard')
             }
             else if (response?.data?.data?.admin==="false") {

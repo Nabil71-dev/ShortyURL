@@ -14,7 +14,7 @@ const AllUrlsTable = ({ urls, user, setPage, loading }) => {
 
     return (
         <>
-            <Box w={{ base: '99%', sm: '85%' }} mx="auto" mt="xs" mb="md" p={20} sx={{ backgroundColor: '#ffffff' }}>
+            <Box w={{ base: '99%', sm: '85%' }} mx="auto" mt="xs" mb="md" p={20} sx={{ borderRadius:'8px',backgroundColor: '#ffffff' }}>
                 <Flex align="center" justify="space-between" mb="sm">
                     <Text fw={700}>URL LIST</Text>
                     {

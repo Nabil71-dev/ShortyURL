@@ -11,7 +11,7 @@ const UrlCount = () => {
     ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement, LineElement, RadialLinearScale);
 
     return (
-        <Box w={{ base: '99%', sm: '85%' }} mx="auto" mt="xs" mb="md" p={20} sx={{ backgroundColor: '#ffffff' }}>
+        <Box w={{ base: '99%', sm: '85%' }} mx="auto" mt="xs" mb="md" p={20} sx={{ borderRadius:'8px',backgroundColor: '#ffffff' }}>
             <Flex align="center" justify="space-between" mb="sm">
                 <Text fw={700}>URLs created over year : 2023</Text>
             </Flex>

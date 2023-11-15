@@ -5,6 +5,7 @@ const FormLayoutPrimary = ({ title, children }) => {
     return (
             <Box w={{ base: '99%', sm: '75%', md:'56%',lg:'40%' }} p={30} sx={(theme) => ({
                 backgroundColor: '#ffffff',
+                borderRadius:'8px',
                 borderRadius:'8px'
             })}>
                 <Flex align="center" sx={{ marginTop: '1.25rem' }} >
