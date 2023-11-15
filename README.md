@@ -39,11 +39,10 @@ npm run dev
  pass : 12345
 ```
 ## Overview
-It's a simple URL shortner project which I created to utilize my recent learnings most importantly in Backend tech and tricks
+It's a simple URL shortner project which I created to utilize my recent learnings. 
 ###### Frontend
 NextJs 14, Mantine UI, Redux toolkit, ChartJs, crypto-js, mantine-data-grid, firebase auth.
-###### Backend
-ExpressJs, JWT, CRON-job, Redis cache, Seeding, ORM (mongoose), SLS function, bcrypt, 
+###### [Backend](https://github.com/Nabil71-dev/shortyURL-server)
 
 ## How It works (mechanism)
 ![workflow](https://github.com/Nabil71-dev/ShortyURL/assets/69987319/6d1331f6-8175-4148-86ad-073a08d02666)
