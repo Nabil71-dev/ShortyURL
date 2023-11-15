@@ -40,9 +40,9 @@ npm run dev
 ```
 ## Overview
 It's a simple URL shortner project which I created to utilize my recent learnings most importantly in Backend tech and tricks
-**Frontend**
+##### Frontend
 NextJs 14, Mantine UI, Redux toolkit, ChartJs, crypto-js, mantine-data-grid, firebase auth.
-**Backend**
+##### Backend
 ExpressJs, JWT, CRON-job, Redis cache, Seeding, ORM (mongoose), SLS function, bcrypt, 
 
 ## How It works (mechanism)
