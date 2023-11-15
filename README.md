@@ -1,9 +1,8 @@
-[logo](assets/shorty.png)
+![shorty](https://github.com/Nabil71-dev/ShortyURL/assets/69987319/9cf1fde6-f837-48ae-b688-7ab897ba2472)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
-
 ```bash
  setup next.config.js file with necessary env data
  const nextConfig = {
@@ -27,6 +26,25 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ```bash
 npm run dev
 ```
+
+
+## Credentials
+```bash
+ admin
+ email : admin@gmail.com
+ pass : Hello@123
+
+ user 
+ email : shortytest01@gmail.com
+ pass : 12345
+```
+## Overview
+It's a simple URL shortner project which I created to utilize my recent learnings most importantly in Backend tech and tricks
+**Frontend**
+NextJs 14, Mantine UI, Redux toolkit, ChartJs, crypto-js, mantine-data-grid, firebase auth.
+**Backend**
+ExpressJs, JWT, CRON-job, Redis cache, Seeding, ORM (mongoose), SLS function, bcrypt, 
+
 ## How It works (mechanism)
 ![workflow](https://github.com/Nabil71-dev/ShortyURL/assets/69987319/6d1331f6-8175-4148-86ad-073a08d02666)
 
