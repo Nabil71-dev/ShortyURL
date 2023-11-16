@@ -44,7 +44,7 @@ NextJs, Mantine UI, Redux toolkit, ChartJs, crypto-js, mantine-data-grid, fireba
 ###### [Backend](https://github.com/Nabil71-dev/shortyURL-server)
 
 ## How It works (mechanism)
-![workflow](https://github.com/Nabil71-dev/ShortyURL/assets/69987319/6d1331f6-8175-4148-86ad-073a08d02666)
+![flow-chart](https://github.com/Nabil71-dev/ShortyURL/assets/69987319/e4015c6c-f867-47b2-aef2-2f9811bdd0d3)
 
 ## Final output UI
 **General**
