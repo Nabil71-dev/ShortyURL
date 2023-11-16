@@ -7,6 +7,7 @@ import { expMap } from "@/utils/constant";
 import { useDispatch } from "react-redux";
 import { createUrl } from '../../../../services/urls.slice'
 import { useState } from "react";
+import LoadingButton from "@/components/Loading.button";
 
 const CreateShortForm = ({ close, limit }) => {
     const [isSubmit, setSubmit] = useState(false)
@@ -39,7 +40,7 @@ const CreateShortForm = ({ close, limit }) => {
                 }
                 <Group position="center" mt="md">
                     {
-                        isSubmit ? <LoaderButton /> : <>
+                        isSubmit ? <LoadingButton /> : <>
                             {limit > 0 ? <ButtonPrimary type="submit" text="Submit" /> : <Text c="red" fw={600}>Your daily limit is over</Text>}
                         </>
                     }
