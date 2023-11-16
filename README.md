@@ -18,6 +18,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## First, run the development server:
 ```bash
+npm install
 npm run dev
 ```
 
@@ -38,13 +39,13 @@ NextJs, Mantine UI, Redux toolkit, ChartJs, crypto-js, mantine-data-grid, fireba
 ###### [Backend](https://github.com/Nabil71-dev/shortyURL-server)
 
 ## Features 
-**Current version**
+###### Current version
  * Signup (email, google account {firebase}).
  * Forget and rest pass
  * URL create by user for fixed time
  * User dashboard with all stats
  * User and URL manage from admin side
-**Next version**
+###### Next version
  * custom alais set
    
 ## How It works (mechanism)
