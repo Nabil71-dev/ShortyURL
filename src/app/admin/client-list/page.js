@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from "react";
-import { Flex, Box, Text, Switch, Button, Loader } from "@mantine/core";
+import { Flex, Box, Text, Loader } from "@mantine/core";
 import { stringFilterFn } from "mantine-data-grid"
 import { useSelector, useDispatch } from 'react-redux';
 import Table from "@/components/Table";

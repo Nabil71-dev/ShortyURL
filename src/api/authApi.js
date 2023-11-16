@@ -38,7 +38,6 @@ instance.interceptors.response.use(
       if (err.response.status === 403 && !originalConfig._retry) {
         // handle infinite loop
         originalConfig._retry = true;
-        // console.log("refresh", TokenService.getLocalRefreshToken());
         try {
           const data = JSON.parse(Cookies.get("user"))
           const token = decrypt(data.token);

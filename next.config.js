@@ -1,12 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    basePath:'',
-    rewrites : [
-        {
-            source: '/:catchAll(.*)',
-            destination: '/',
-        },
-    ],
     env: {
         // # Server URL
         SERVER_URL: process.env.SERVER_URL,
@@ -19,6 +12,14 @@ const nextConfig = {
         storage_Bucket: process.env.storage_Bucket,
         messaging_Sender_Id: process.env.messaging_Sender_Id,
         app_Id: process.env.app_Id,
+    },
+    async rewrites() {
+        return [
+            {
+                source: '/admin/client-list/:catchAll(.*)',
+                destination: '/admin/client-list/:catchAll(.*)', 
+            },
+        ]
     },
 }
 
