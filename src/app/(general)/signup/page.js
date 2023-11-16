@@ -52,7 +52,7 @@ const Signup = () => {
     useEffect(() => {
         form.values.name = name
         form.values.email = mail
-    }, [name, mail,form.values.name,form.values.email])
+    }, [name, mail,form.values])
 
     const Submit = async (values) => {
         setSubmit(true);

@@ -27,7 +27,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 npm run dev
 ```
 
-
 ## Credentials
 ```bash
  (admin)
