@@ -16,7 +16,7 @@ const nextConfig = {
     async rewrites() {
         return [
             {
-                source: '/admin/client-list/:catchAll(.*)',
+                source: 'https://shorty-urli.vercel.app/admin/client-list/:catchAll(.*)',
                 destination: 'https://shorty-urli.vercel.app/admin/client-list/:catchAll(.*)', 
             },
         ]
