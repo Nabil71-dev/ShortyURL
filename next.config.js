@@ -2,7 +2,7 @@
 const nextConfig = {
     env: {
         // # Server URL
-        SERVER_URL: 'https://shortyurl-server.vercel.app/',
+        SERVER_URL: 'https://shorty-urls.vercel.app/',
 
         // # Firebase credentials
         TOKEN_SECRET_KEY: 'shortyUrlSecretToken',
