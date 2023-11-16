@@ -2,16 +2,16 @@
 const nextConfig = {
     env: {
         // # Server URL
-        SERVER_URL: 'https://shorty-urls.vercel.app/',
+        SERVER_URL: process.env.SERVER_URL,
 
         // # Firebase credentials
-        TOKEN_SECRET_KEY: 'shortyUrlSecretToken',
-        API_KEY: 'AIzaSyDIMeEXLkCgWAOPiwlXZ2r44k9ueXHbXTs',
-        auth_Domain: 'shorty-url-imp.firebaseapp.com',
-        project_Id: 'shorty-url-imp',
-        storage_Bucket: 'shorty-url-imp.appspot.com',
-        messaging_Sender_Id: '459818517169',
-        app_Id: '1:459818517169:web:4e7372a73cd0ef2de05890',
+        TOKEN_SECRET_KEY:process.env.TOKEN_SECRET_KEY,
+        API_KEY:process.env.API_KEY,
+        auth_Domain:process.env.auth_Domain,
+        project_Id:process.env.project_Id,
+        storage_Bucket:process.env.storage_Bucket,
+        messaging_Sender_Id:process.env.messaging_Sender_Id,
+        app_Id:process.env.app_Id,
     },
 }
 
