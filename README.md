@@ -4,22 +4,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 ```bash
- setup next.config.js file with necessary env data
- const nextConfig = {
-    env: {
-        // # Server URL
-        SERVER_URL:
+ setup .env file file with necessary env data
 
-        // # Firebase credentials
-        TOKEN_SECRET_KEY: ,
-        API_KEY: ,
-        auth_Domain: ,
-        project_Id:,
-        storage_Bucket:,
-        messaging_Sender_Id: ,
-        app_Id: ,
-    },
-  module.exports = nextConfig
+ SERVER_URL= 
+ TOKEN_SECRET_KEY= 
+ API_KEY= 
+ auth_Domain= 
+ project_Id= 
+ storage_Bucket= 
+ messaging_Sender_Id= 
+ app_Id= 
 ```
 
 ## First, run the development server:
