@@ -14,12 +14,14 @@ const nextConfig = {
         app_Id: process.env.app_Id,
     },
     async rewrites() {
-        return [
-            {
-                source: '/:catchAll(.*)',
+        return {
+          fallback: [
+           {
+             source: '/:catchAll(.*)',
                 destination: 'https://shorty-urli.vercel.app/admin/client-list/:catchAll(.*)', 
-            },
-        ]
+           },
+         ],
+        }
     },
 }
 
