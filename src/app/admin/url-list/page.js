@@ -3,12 +3,20 @@ import { getAllUrls, reset } from "@/services/allUrls.slice";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import AllUrlsTable from "./UrlsAll.table";
+import { Loader } from "@mantine/core";
 
 const UrlList = () => {
     const [page, setPage] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
 
     const dispatch = useDispatch();
     const { loading, allUrls } = useSelector(state => state.allUrls);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+    }, []);
 
     useEffect(() => {
         dispatch(getAllUrls(page));
@@ -18,7 +26,12 @@ const UrlList = () => {
 
     return (
         <>
-            <AllUrlsTable urls={allUrls} user={false} setPage={setPage} loading={loading} />
+            {
+                isLoading && <Loader />
+            }
+            {
+                !isLoading && <AllUrlsTable urls={allUrls} user={false} setPage={setPage} loading={loading} />
+            }
         </>
     );
 }

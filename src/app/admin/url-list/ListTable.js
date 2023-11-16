@@ -48,6 +48,7 @@ const UrlTable = ({ user, urls, limit, setPage, loading }) => {
                                     )
                                 }
                             },
+                            size: 35,
                             filterFn: stringFilterFn,
                         },
                         {

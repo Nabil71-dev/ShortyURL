@@ -6,74 +6,31 @@ import { footerText } from '@/utils/constant';
 import LogoutButton from '@/components/Logout.button';
 
 const DashboardTwo = ({ children, user }) => {
-    // const theme = useMantineTheme();
-    // return (
-    //     <AppShell
-    //         styles={{
-    //             main: {
-    //                 background: theme.colors.gray[1],
-    //             },
-    //         }}
-    //         navbar={ <> </>  }
-    //         header={
-    //             <Header height={{ base: 50, md: 50 }} p="md">
-    //                 <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-    //                     <Flex align="center" justify="space-between" sx={{ width: "100%" }}>
-    //                         <Box>
-    //                             <Image src={logo} alt="ShortyURL" />
-    //                         </Box>
-    //                         <Box>
-    //                             {
-    //                                 user && <LogoutButton />
-    //                             }
-    //                         </Box>
-    //                     </Flex>
-    //                 </div>
-    //             </Header>
-    //         }
-    //         footer={
-    // <Footer height={25}>
-    //     <Center>
-    //         <Text size="xs" color="gray.6">{footerText}</Text>
-    //     </Center>
-    // </Footer>
-    //         }
-    //     >
-    //         <Flex h="100%" justify="center" align="center">
-    //             {children}
-    //         </Flex>
-    //     </AppShell>
-    // )
+
     return (
-        <Stack align="center" justify="space-between" spacing="xl" sx={(theme) => ({ backgroundColor: theme.colors.gray[0], height: '100vh' })}>
-            {/* <div> */}
-                <Header height={{ base: 50, md: 50 }} p="md" w="100%">
-                    <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-                        <Flex align="center" justify="space-between" sx={{ width: "100%" }}>
-                            <Box>
-                                <Image src={logo} alt="ShortyURL" />
-                            </Box>
-                            <Box>
-                                {
-                                    user && <LogoutButton />
-                                }
-                            </Box>
-                        </Flex>
-                    </div>
-                </Header>
-            {/* </div> */}
-            {/* <div> */}
-                <Flex  w="100%" h="100%" justify="center" align="center">
-                    {children}
-                </Flex>
-            {/* </div> */}
-            {/* <div> */}
-                <Footer height={25}  w="100%">
-                    <Center>
-                        <Text size="xs" color="gray.6">{footerText}</Text>
-                    </Center>
-                </Footer>
-            {/* </div> */}
+        <Stack align="center" justify="space-between" spacing="xl" sx={(theme) => ({ backgroundColor: theme.colors.gray[2], height: '100vh' })}>
+            <Header height={{ base: 50, md: 50 }} p="md" w="100%">
+                <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
+                    <Flex align="center" justify="space-between" sx={{ width: "100%" }}>
+                        <Box>
+                            <Image src={logo} alt="ShortyURL" />
+                        </Box>
+                        <Box>
+                            {
+                                user && <LogoutButton />
+                            }
+                        </Box>
+                    </Flex>
+                </div>
+            </Header>
+            <Flex w="100%" h="100%" justify="center" align="center">
+                {children}
+            </Flex>
+            <Footer height={25} w="100%">
+                <Center>
+                    <Text size="xs" color="gray.6">{footerText}</Text>
+                </Center>
+            </Footer>
         </Stack>
     )
 }
